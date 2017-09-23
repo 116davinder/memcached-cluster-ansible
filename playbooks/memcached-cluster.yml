@@ -1,0 +1,13 @@
+- hosts: localhost
+  gather_facts: true
+  become: true
+  roles:
+    - common
+    - install
+
+- hosts: localhost
+  gather_facts: true
+  become: true
+  serial: 1
+  roles:
+    - service

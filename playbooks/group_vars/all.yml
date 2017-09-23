@@ -1,0 +1,19 @@
+---
+
+memcached_version: 1.5.1
+memcached_user: memcached
+memcached_group: memcached
+
+memcached_port: 11211
+memcached_incoming_connections: 1024
+memcached_memory_in_mb: 512
+
+# options v/vv/vvv
+memcached_log_level: v
+
+memcached_install_dir: /opt/memcached
+
+# Don't change below vars
+memcached_download_url: "https://memcached.org/files/memcached-{{ memcached_version }}.tar.gz"
+memcached_config_dir: "{{ memcached_install_dir }}/config"
+memcached_pid_file: "{{ memcached_config_dir }}/memcached.pid"

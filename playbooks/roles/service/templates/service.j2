@@ -1,0 +1,11 @@
+[Unit]
+Description=memcached daemon
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User={{ memcached_user }}
+ExecStart={{ memcached_install_dir }}/bin/memcached -d -p {{ memcached_port }} -m {{ memcached_memory_in_mb }} -c {{ memcached_incoming_connections }} -u {{ memcached_user }} -l {{ ansible_host }} -{{ memcached_log_level }} -P {{ memcached_pid_file }}
+
+[Install]
+WantedBy=multi-user.target

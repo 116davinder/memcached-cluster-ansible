@@ -1,0 +1,13 @@
+---
+
+- name: Creating Service File | Memcached
+  template:
+    src: service.j2
+    dest: /usr/lib/systemd/system/memcached.service
+
+- name: Starting Memcached Service
+  systemd:
+    name: memcached
+    state: started
+    enabled: true
+    daemon_reload: true

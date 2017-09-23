@@ -1,0 +1,37 @@
+---
+
+- name: Install Common packages | Redhat
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libevent-devel
+    - tar
+    - make
+    - "@Development tools"
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Install Common packages | Debain
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - libevent-dev
+    - tar
+    - make
+    - build-essential
+  when:
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Creating Memcached Group | {{ memcached_group }}
+  group:
+    name: "{{ memcached_group }}"
+    state: present
+
+- name: Creating Memcached User | {{ memcached_user }}
+  user:
+    name: "{{ memcached_user }}"
+    state: present
+    group: "{{ memcached_group }}"

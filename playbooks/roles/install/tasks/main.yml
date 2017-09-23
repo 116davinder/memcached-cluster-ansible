@@ -1,0 +1,25 @@
+---
+
+- name: Creating Installation Dir | {{ memcached_install_dir }}
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
+  with_items:
+    - /tmp/memcached
+    - "{{ memcached_config_dir }}"
+
+- name: Download and Extarcting Memcached | {{ memcached_version }}
+  unarchive:
+    src: "{{ memcached_download_url }}"
+    dest: /tmp/memcached
+    owner: "{{ memcached_user }}"
+    group: "{{ memcached_group }}"
+    remote_src: yes
+    extra_opts: ["--strip-components=1"]
+
+- name: Make and Install | {{ memcached_install_dir }}
+  shell: "./configure --prefix={{ memcached_install_dir }} && make && make install"
+  args:
+    chdir: /tmp/memcached
+    creates: "{{ memcached_install_dir }}/bin/memcached"
